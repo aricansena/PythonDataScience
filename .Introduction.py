@@ -30,6 +30,7 @@ missingData = pd.read_csv("C:/Users/senaa/PythonDataScience/missingdata.csv")
 print(missingData)
 """
 """
+#sci-kit learn
 
 from sklearn.impute import SimpleImputer
 imputer = SimpleImputer(missing_values=np.nan,strategy="mean")
@@ -39,6 +40,8 @@ print(Age)
 imputer = imputer.fit(Age[:,1:4])
 Age[:,1:4]= imputer.transform(Age[:,1:4])
 print(Age)
+
+# encoder : Kategorik > Numeric
 
 country = missingData.iloc[:,0:1].values
 print(country)
@@ -56,6 +59,7 @@ ohe = preprocessing.OneHotEncoder()
 country = ohe.fit_transform(country).toarray()
 print(country)
 
+#numpy dizileri dataFrame Dönüşümü
 
 countryResult = pd.DataFrame(data=country,index=range(22),columns=["fr","tr","us"])
 print(countryResult)
@@ -69,6 +73,7 @@ print(gender)
 genderResult = pd.DataFrame(data=gender,index=range(22),columns=["gender"])
 print(genderResult)
 
+# dataframe Birleştirme İşlemi
 
 s =pd.concat([countryResult,ageResult],axis=1)
 print(s)
@@ -76,9 +81,20 @@ print(s)
 finalResult = pd.concat([s,genderResult],axis=1)
 print(finalResult)
 
+#train test split
 
+from sklearn.model_selection import train_test_split
 
+x_train,x_test,y_train,y_test = train_test_split(s,genderResult,test_size=0.33,random_state=0)
 
+#verilerin ölçeklenmesi
+
+from sklearn.preprocessing import StandardScaler
+
+sc = StandardScaler()
+
+X_train = sc.fit_transform(x_train)
+X_test = sc.fit_transform(x_test)
 
 
 
