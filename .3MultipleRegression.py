@@ -59,3 +59,139 @@ lr = LinearRegression()
 lr.fit(x_train, y_train)
 
 y_pred = lr.predict(x_test)
+
+###############################
+
+height = finalResult.iloc[:,3:4].values
+
+s1 = finalResult.iloc[:,:3]
+print(s1)
+s2= finalResult.iloc[:,4:]
+print(s2)
+
+
+s3= pd.concat([s1,s2],axis=1)
+print(s3)
+
+x_train,x_test,y_train,y_test = train_test_split(s3,height,test_size=0.33,random_state=0)
+
+regressor = LinearRegression()
+regressor.fit(x_train, y_train)
+
+y_predict = regressor.predict(x_test)
+
+################################
+
+#Backward Elimination
+
+import statsmodels.api as sm
+
+X= np.append(arr= np.ones((22,1)).astype(int), values=s3,axis=1)
+
+X_l = s3.iloc[:,[0,1,2,3,4,5]].values
+X_l = np.array(X_l,dtype=float)
+model = sm.OLS(height,X_l).fit()
+print(model.summary())
+
+X_l = s3.iloc[:,[0,1,2,3,5]].values
+X_l = np.array(X_l,dtype=float)
+model = sm.OLS(height,X_l).fit()
+print(model.summary())
+
+
+X_l = s3.iloc[:,[0,1,2,3]].values
+X_l = np.array(X_l,dtype=float)
+model = sm.OLS(height,X_l).fit()
+print(model.summary())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
