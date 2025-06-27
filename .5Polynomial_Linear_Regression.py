@@ -4,8 +4,6 @@ Created on Mon Jun 23 22:09:53 2025
 
 @author: senaa
 """
-
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -47,3 +45,13 @@ print(lr_linear.predict([[6.6]]))
 print(lr_linear.predict([[11]]))
 print(lr_poly.predict(poly_reg.fit_transform([[6.6]])))
 print(lr_poly.predict(poly_reg.fit_transform([[11]])))
+
+
+from sklearn.metrics import r2_score
+
+print("Linear Regression R Square")
+print(r2_score(Y, lr_linear.predict(X)))
+
+print("Polynomial R Square")
+print(r2_score(Y, lr_poly.predict(poly_reg.fit_transform(X))))
+
