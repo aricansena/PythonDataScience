@@ -28,6 +28,8 @@ print(Sena.height)
 
 missingData = pd.read_csv("C:/Users/senaa/PythonDataScience/missingdata.csv")
 print(missingData)
+print("nan")
+print(missingData.isnull().sum())
 """
 """
 #sci-kit learn

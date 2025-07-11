@@ -28,12 +28,12 @@ from sklearn.linear_model import LogisticRegression
 
 log_reg = LogisticRegression(random_state=0)
 log_reg.fit(X_train,y_train.ravel())
-
 y_pred = log_reg.predict(X_test)
 
 from sklearn.metrics import confusion_matrix
 
 cm= confusion_matrix(y_test, y_pred)
+print("LogisticRegression")
 print(cm)
 
 from sklearn.neighbors import KNeighborsClassifier
@@ -43,15 +43,79 @@ knn.fit(X_train, y_train)
 y_pred = knn.predict(X_test)
 
 cm = confusion_matrix(y_test,y_pred)
+print("KNN")
 print(cm)
 
 from sklearn.svm import SVC
 
-svc = SVC(kernel="poly")
+svc = SVC(kernel="rbf")
 svc.fit(X_train, y_train)
-
 p_pred = svc.predict(X_test)
+
 cm = confusion_matrix(y_test,y_pred)
 print("svc")
 print(cm)
+
+
+from sklearn.naive_bayes import GaussianNB
+gnb = GaussianNB()
+gnb.fit(X_train, y_train)
+y_pred = gnb.predict(X_test)
+
+cm = confusion_matrix(y_test,y_pred)
+print("GaussianNB")
+print(cm)
+
+from sklearn.tree import DecisionTreeClassifier
+dtc = DecisionTreeClassifier(criterion='entropy')
+dtc.fit(X_train,y_train)
+y_pred= dtc.predict(X_test)
+
+cm = confusion_matrix(y_test,y_pred)
+print("DecisionTreeClassifier")
+print(cm)
+
+
+from sklearn.ensemble import RandomForestClassifier
+rfc = RandomForestClassifier(n_estimators=10,criterion='entropy')
+rfc.fit(X_train, y_train)
+y_pred= dtc.predict(X_test)
+y_proba = rfc.predict_proba(X_test)
+
+cm = confusion_matrix(y_test,y_pred)
+print("RandomForestClassifier")
+print(cm)
+
+print(y_proba[:,0])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
