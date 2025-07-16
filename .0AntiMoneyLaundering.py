@@ -130,8 +130,3 @@ print(cm)
 print("Accuracy:", accuracy_score(y_test, y_pred))
 precision = precision_score(y_test, y_pred)
 print(f"Precision: {precision:.4f}")
-
-
-
-
-
