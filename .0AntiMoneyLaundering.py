@@ -6,13 +6,16 @@ Created on Sun Jul 13 22:43:34 2025
 """
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
- 
-data = pd.read_csv("C:/Users/senaa/PythonDataScience/SAML-D.csv")
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+
+#https://www.kaggle.com/code/gbiamgaurav/aml-prediction/input
+data = pd.read_csv("C:/Users/senaa/PythonDataScience/antimoneyl.csv")
 
 from sklearn.model_selection import train_test_split
 data , _ = train_test_split(data, 
-                                 train_size=500_000, 
+                                 train_size=800_000, 
                                  stratify=data['Is_laundering'], 
                                  random_state=42)
 
@@ -55,25 +58,45 @@ y= data.iloc[:,8:9].values
 
 
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.33,stratify=y, random_state=42)
 
+from sklearn.preprocessing import StandardScaler
+sc=StandardScaler()
+x_train = sc.fit_transform(X_train)
+x_test = sc.transform(X_test)
+
+from sklearn.linear_model import LogisticRegression
+logr = LogisticRegression(random_state=0)
+logr.fit(x_train,y_train)
+y_pred = logr.predict(x_test)
+cm = confusion_matrix(y_test,y_pred)
+print("LG")
+print(cm)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+precision = precision_score(y_test, y_pred)
+print(f"Precision: {precision:.4f}")
 
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=3, metric='minkowski')
-knn.fit(X_train,y_train)
-y_pred = knn.predict(X_test)
-from sklearn.metrics import confusion_matrix
+knn.fit(x_train,y_train)
+y_pred = knn.predict(x_test)
 cm = confusion_matrix(y_test,y_pred)
 print('KNN')
 print(cm)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+precision = precision_score(y_test, y_pred)
+print(f"Precision: {precision:.4f}")
 
 from sklearn.svm import SVC
 svc = SVC(kernel='poly')
-svc.fit(X_train,y_train)
-y_pred = svc.predict(X_test)
+svc.fit(x_train,y_train)
+y_pred = svc.predict(x_test)
 cm = confusion_matrix(y_test,y_pred)
 print('SVC')
 print(cm)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+precision = precision_score(y_test, y_pred)
+print(f"Precision: {precision:.4f}")
 
 from sklearn.naive_bayes import GaussianNB
 gnb = GaussianNB()
@@ -82,6 +105,9 @@ y_pred = gnb.predict(X_test)
 cm = confusion_matrix(y_test,y_pred)
 print('GNB')
 print(cm)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+precision = precision_score(y_test, y_pred)
+print(f"Precision: {precision:.4f}")
 
 from sklearn.tree import DecisionTreeClassifier
 dtc = DecisionTreeClassifier(criterion = 'entropy')
@@ -90,6 +116,9 @@ y_pred = dtc.predict(X_test)
 cm = confusion_matrix(y_test,y_pred)
 print('DTC')
 print(cm)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+precision = precision_score(y_test, y_pred)
+print(f"Precision: {precision:.4f}")
 
 from sklearn.ensemble import RandomForestClassifier
 rfc = RandomForestClassifier(n_estimators=10, criterion = 'entropy')
@@ -98,10 +127,9 @@ y_pred = rfc.predict(X_test)
 cm = confusion_matrix(y_test,y_pred)
 print('RFC')
 print(cm)
-
-
-
-
+print("Accuracy:", accuracy_score(y_test, y_pred))
+precision = precision_score(y_test, y_pred)
+print(f"Precision: {precision:.4f}")
 
 
 
